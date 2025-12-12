@@ -1,0 +1,497 @@
+import sys
+
+# (Justification comment for code block below)
+#########################################################################
+# Is there a simpler way to meet requirements without creating this code block?
+# What is the closest alternative to creating this code block?
+# What statements have you kept inside the code block and why haven’t you put them outside?
+# Why are these statements in this order? What haven’t you added into the code block and why?
+class FrontEnd:
+    # (Justification comment for code block below)
+    #########################################################################
+    # Is there a simpler way to meet requirements without creating this code block?
+    # What is the closest alternative to creating this code block?
+    # What statements have you kept inside the code block and why haven’t you put them outside?
+    # Why are these statements in this order? What haven’t you added into the code block and why?
+    def __init__(self, backend:str):
+        # (Justification comment for variable below)
+        # Variable created to save the information passed
+        # from app.py it will specify the backend module and this variable will
+        # be used when operations are required from that module.
+        # Alternatively I could have called is self.__backendmanager or
+        # self.__backendmodule but wanted to keep it simple and easy to read
+        # in this instance. I did not want to include any details in the frontend
+        # that was not required. As self is called in the backend module I also
+        # used self and made the instance hidden with the double underscores.
+        self.__backend = backend
+        # (Justification comment for code block below)
+        # try and except are used incase there are errors from the backend
+        # that may need to be communicated to user in the program.
+        # If try and except were not used and there was an error raised it would stop the program.
+        # I dont think there are alternatives to the try/except,
+        # I could have also specified another action to take such as loading a backup file to run the program. 
+        # (Justification comment for code block below)
+        #########################################################################
+        # Is there a simpler way to meet requirements without creating this code block?
+        # What is the closest alternative to creating this code block?
+        # What statements have you kept inside the code block and why haven’t you put them outside?
+        # Why are these statements in this order? What haven’t you added into the code block and why?
+        try:
+            self.__backend.load_data()
+        # (Justification comment for code block below)
+        #########################################################################
+        # Is there a simpler way to meet requirements without creating this code block?
+        # What is the closest alternative to creating this code block?
+        # What statements have you kept inside the code block and why haven’t you put them outside?
+        # Why are these statements in this order? What haven’t you added into the code block and why?
+        except:
+            sys.stderr.write("Error cannot load file")
+        self.monopolyUI()
+        
+    # (Justification comment for code block below)
+    # MonopolyUI is named as the specific function to run the frontend operations in the program.
+    # Alternatively I could have called is User_Interface, frontend_ui or similiar but I thought
+    # it was more suitable to use this name to keep it consistant following the theme of this application.
+    # (Justification comment for code block below)
+    #########################################################################
+    # Is there a simpler way to meet requirements without creating this code block?
+    # What is the closest alternative to creating this code block?
+    # What statements have you kept inside the code block and why haven’t you put them outside?
+    # Why are these statements in this order? What haven’t you added into the code block and why?
+    def monopolyUI(self):
+        # (Justification comment for variable below)
+        # Alternative names I could have used are program_menu, program_options,
+        # however menu is more suitable and keeps the code easier to read.
+        # Data type is string to allow the text to be printed to user and
+        # inform them of the options available. I dont think it would be
+        # appropriate to use INT or Float to perform this work as we would not
+        # get the same output.
+        menu =  "\n========================================\n\n"
+        menu += "Monopoly Bank App V.2 \n"
+        menu += "\n========================================\n"
+        menu += "\t[V]iew your accounts\n"
+        menu += "\t[A]dd new account\n"
+        menu += "\t[W]ithdrawal\n"
+        menu += "\t[D]eposit \n"
+        menu += "\t[S]ave to a new file\n"
+        menu += "\tE[x]it\n"
+        menu += "\n========================================\n"
+        menu += "Enter option: "
+        # (Justification comment for variable below)
+        # Alternative names I could have used are options, user_input, however
+        # for consistancy I chose to keep choice as it describes the user choice
+        # of input. get_str is called in this variable as to ensure the input is
+        # not blank and break the program.  
+        choice = FrontEnd.__get_str(menu).lower()
+        # (Justification comment for condition below)
+        # The condition on the while loop is if choice is not x, this means the
+        # loop will continue to run if the choice, which is the user input
+        # enters x to exit the program.
+        # x is listed an option to exit.
+        # (Justification comment for code block below)
+        #########################################################################
+        # Is there a simpler way to meet requirements without creating this code block?
+        # What is the closest alternative to creating this code block?
+        # What statements have you kept inside the code block and why haven’t you put them outside?
+        # Why are these statements in this order? What haven’t you added into the code block and why?
+        while (choice!= "x"):
+            # (Justification comment for condition below)
+            # v is listed as an operation in the menu.
+            # That will trigger this if statement.
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            if (choice== "v"):
+                sys.stdout.write("\n"+"Accounts".center(40,"-"))
+                sys.stdout.write("\n")
+                sys.stdout.write(self.__backend.display_accounts())
+            # (Justification comment for condition below)
+            # a is listed as an operation in the menu.
+            # That will trigger this if statement.
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            elif (choice== "a"):
+                sys.stdout.write("\n"+"Add new account".center(40,"-"))
+                sys.stdout.write("\n\n")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are new_acc_num or number, however
+                # new_account_number was more suitable to represent the context saved in
+                # the variable. get_int is required as the account numbers are stored as
+                # INT which is consistant with other banks. 
+                new_account_number = FrontEnd.__get_positive_int("Enter new account number (4-10 digits): ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are new_acc_name or name, however
+                # new_account_name was more suitable to represent the context saved in
+                # the variable.
+                # get_str is required on this input to ensure the data is stored as string
+                # consistant throughout the program. There is no real need on the backend
+                # for a string data type however it would make the account easier for the
+                # customer to recognise by putting a name to it. 
+                new_account_name = FrontEnd.__get_str("Enter new account name (4-10 digits): ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are opening_balance or money, however
+                # new_account_balance was more suitable to represent the context saved in
+                # the variable.
+                # get_float is required as the account balances are stored as
+                # float to allow addition and subtraction to decimal values such as normal
+                # money transactions which is consistant with other banks. 
+                new_account_balance = FrontEnd.__get_positive_float("Balance: ")
+                # (Justification comment for code block below)
+                # Built in errors can be raised from running this operation and stop the program,
+                # I chose to use a try and except here to avoid this issue. If a new object cannot
+                # be created it will not break the program.
+                # As I have already included functions to validate the user input of type before it is sent to the backend,
+                # the errors raised will be due to the object creation rules which specify min and max length on account name and account number.
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                try:
+                    self.__backend.add_account(new_account_number,new_account_name, new_account_balance)
+                    sys.stdout.write("Account created successfully.\n")
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                except:
+                    sys.stderr.write("Problem, account number and name must be at least 4-10 digits.")
+            # (Justification comment for condition below)
+            # s is listed as an operation in the menu.
+            # That will trigger this if statement.
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            elif (choice== "s"):
+                # (Justification comment for variable below)
+                # Alternative names I could have used are file_name or f
+                # however I thought this was sufficient for this purposes and describes
+                # its purpose and the context of the data saved to the variable. 
+                file_name = FrontEnd.__get_str("\nEnter file name: ")
+                # (Justification comment for code block below)
+                # Built in errors can be raised from running this operation and stop the program,
+                # I chose to use a try and except here to avoid this issue. If the file named
+                # cannot be saved such as if the status is read-only the export_data function will break the program.
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                try:
+                    self.__backend.export_data(file_name)
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                except:
+                    sys.stderr.write("Error: Could not export file. Check the file name and try again.")      
+            # (Justification comment for condition below)
+            # d is listed as an operation in the menu.
+            # That will trigger this if statement.
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            elif (choice=="d"):
+                # (Justification comment for variable below)
+                # Alternative names I could have used are acc_num or number, however
+                # account_number was more suitable to represent the context saved in
+                # the variable. get_positve_int is required as the account numbers are stored as
+                # INT which is consistant with other banks.
+                # Alternatively, the account number could have been represented as string however,
+                # that would make it difficult to keep the account ID consistant and seperate from the name. 
+                account_number = FrontEnd.__get_positive_int("Enter account number: ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are acc_name or name, however
+                # account_name was more suitable to represent the context saved in
+                # the variable.
+                # get_str is required on this input to ensure the data is stored as string
+                # consistant throughout the program. There is no real need on the backend
+                # for a string data type however it would make the account easier for the
+                # customer to recognise by putting a name to it. 
+                account_name =FrontEnd.__get_str("Enter account name: ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are deposit or money, however
+                # deposit_amount was more suitable to represent the context saved in
+                # the variable.
+                # __get_positive_float is required as the account balances are stored as
+                # float to allow addition and subtraction to decimal values such as normal
+                # money transactions which is consistant with other banks. 
+                deposit_amount=FrontEnd.__get_positive_float("Enter deposit amount:")
+                # (Justification comment for condition below)
+                # I have inlcuded if and else statements to confirm if the transaction was
+                # successful or not to the customer.
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                if(self.__backend.deposit(account_number, account_name, deposit_amount)==True):
+                    sys.stdout.write("\nTransaction successful")
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                else:
+                    sys.stdout.write("Problem, the account details could not be found.")
+            # (Justification comment for condition below)
+            # w is listed as an operation in the menu.
+            # That will trigger this if statement.
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            elif (choice=="w"):
+                sys.stdout.write("\n")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are acc_num or number, however
+                # account_number was more suitable to represent the context saved in
+                # the variable. get_int is required as the account numbers are stored as
+                # INT which is consistant with other banks. 
+                account_number =FrontEnd.__get_positive_int("Enter account number: ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are acc_name or name, however
+                # account_name was more suitable to represent the context saved in
+                # the variable.
+                # get_str is required on this input to ensure the data is stored as string
+                # consistant throughout the program. There is no real need on the backend
+                # for a string data type however it would make the account easier for the
+                # customer to recognise by putting a name to it. 
+                account_name = FrontEnd.__get_str("Enter account name: ")
+                # (Justification comment for variable below)
+                # Alternative names I could have used are withdrawal or money, however
+                # withdrawal_amount was more suitable to represent the context saved in
+                # the variable.
+                # __get_positive_float is required as the account balances are stored as
+                # float to allow addition and subtraction to decimal values such as normal
+                # money transactions which is consistant with other banks. 
+                withdrawal_amount=FrontEnd.__get_positive_float("Enter withdrawal amount:")
+                # (Justification comment for code block below)
+                # Built in errors can be raised from running this operation
+                # and stop the program, I chose to use a try and except here
+                # to avoid this issue.
+                # If the balance is less than the withdrawal amount it would
+                # raise the zerodivisionerror, and this try/except will
+                # continue the program without breaking.
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                try:
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    if (self.__backend.withdrawal(account_number, account_name, withdrawal_amount)==True):
+                        sys.stdout.write("\nTransaction successful\n")
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    else:
+                        sys.stdout.write("Problem, the account details could not be found.")
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                except:
+                    sys.stderr.write("Problem, not enough funds to perform this transaction.")
+
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            else:
+                sys.stdout.write("Choice not valid: \n")
+            # (Justification comment for variable below)
+            # Alternative names I could have used are options, user_input, however
+            # for consistancy I chose to keep choice as it describes the user choice
+            # of input. get_str is called in this variable as to ensure the input is
+            # not blank and break the program.  
+            choice = FrontEnd.__get_str(menu).lower()
+        self.__backend.save_data()
+
+# --------------------------------------------------------------------------------------------------------------
+
+    # (Justification comment for code block below)
+    # the purpose of this function is to initialize the string data input from
+    # the user in order to keep the program running without error from blank
+    # user input. I'm not sure if there are alternatives to this function.
+    # (Justification comment for code block below)
+    #########################################################################
+    # Is there a simpler way to meet requirements without creating this code block?
+    # What is the closest alternative to creating this code block?
+    # What statements have you kept inside the code block and why haven’t you put them outside?
+    # Why are these statements in this order? What haven’t you added into the code block and why?
+    def __get_str(prompt:str)->str:
+        sys.stdout.write(prompt)
+        return sys.stdin.readline().strip()
+    
+
+
+    # (Justification comment for code block below)
+    # the purpose of this function is to initialize the float type data input
+    # from the user in order to keep the program running without error from
+    # blank user input. I'm not sure if there are alternatives to this function.
+    # (Justification comment for code block below)
+    #########################################################################
+    # Is there a simpler way to meet requirements without creating this code block?
+    # What is the closest alternative to creating this code block?
+    # What statements have you kept inside the code block and why haven’t you put them outside?
+    # Why are these statements in this order? What haven’t you added into the code block and why?
+    def __get_positive_int(prompt:str)->str:
+        value = None
+        # (Justification comment for code block below)
+        #########################################################################
+        # Is there a simpler way to meet requirements without creating this code block?
+        # What is the closest alternative to creating this code block?
+        # What statements have you kept inside the code block and why haven’t you put them outside?
+        # Why are these statements in this order? What haven’t you added into the code block and why?
+        while (value == None):
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            try:
+                value = int(FrontEnd.__get_str(prompt))
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                while ( value < 0 ):
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    try:
+                        value = int(FrontEnd.__get_str(prompt))
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    except:
+                        prompt="Problem, that wasn't right. Re-enter a positive number: "
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            except:
+                prompt="Problem, that wasn't right. Re-enter a positive number: "
+        return value   
+    
+    # (Justification comment for code block below)
+    # the purpose of this function is to initialize the float type data as a
+    # positive float input from the user in order to keep the program running
+    # without error from blank user input. 
+    # The reason I have __get_foat and __get_positive_float is due the testing, if a letter was
+    # entered by the user, the program would break as it cannot convert string to float.
+    # My theory is that I create 2 functions to initialize float input but _get_float just checks
+    # for the correct data type and get_positive_float checks that the float input is actually positive.
+    # I'm not sure if there are alternatives to this function.
+    # (Justification comment for code block below)
+    #########################################################################
+    # Is there a simpler way to meet requirements without creating this code block?
+    # What is the closest alternative to creating this code block?
+    # What statements have you kept inside the code block and why haven’t you put them outside?
+    # Why are these statements in this order? What haven’t you added into the code block and why?
+    def __get_positive_float(prompt:str)->str:
+        value = None
+        # (Justification comment for code block below)
+        #########################################################################
+        # Is there a simpler way to meet requirements without creating this code block?
+        # What is the closest alternative to creating this code block?
+        # What statements have you kept inside the code block and why haven’t you put them outside?
+        # Why are these statements in this order? What haven’t you added into the code block and why?
+        while (value==None):
+            try:
+                value=float(FrontEnd.__get_str(prompt))
+                # (Justification comment for code block below)
+                #########################################################################
+                # Is there a simpler way to meet requirements without creating this code block?
+                # What is the closest alternative to creating this code block?
+                # What statements have you kept inside the code block and why haven’t you put them outside?
+                # Why are these statements in this order? What haven’t you added into the code block and why?
+                while (value<0):
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    try:
+                        value=float(FrontEnd.__get_str(prompt))
+                    # (Justification comment for code block below)
+                    #########################################################################
+                    # Is there a simpler way to meet requirements without creating this code block?
+                    # What is the closest alternative to creating this code block?
+                    # What statements have you kept inside the code block and why haven’t you put them outside?
+                    # Why are these statements in this order? What haven’t you added into the code block and why?
+                    except:
+                        prompt="Problem, that wasn't right. Re-enter a positive number: "
+            # (Justification comment for code block below)
+            #########################################################################
+            # Is there a simpler way to meet requirements without creating this code block?
+            # What is the closest alternative to creating this code block?
+            # What statements have you kept inside the code block and why haven’t you put them outside?
+            # Why are these statements in this order? What haven’t you added into the code block and why?
+            except:
+                prompt="Problem, that wasn't right. Re-enter a positive number: "             
+        return value
+            
+    
+
+
+
+
+
+        
+
+
+
+    
+        
+        
+        
